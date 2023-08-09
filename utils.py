@@ -90,8 +90,8 @@ def get_geom(
 
 
 def test_get_geom():
-    geom, det = get_geom()
+    geom, mask = get_geom()
     run = xd.open_run(4396, 11, data="proc")
     img = run["SQS_NQS_PNCCD1MP/CAL/PNCCD_FMT-0:output", "data.image"][0].xarray()
     img.trainId
-    geom.position_modules(img.data)  # render data with geom
+    geom.position_modules(img.data * mask)  # render data with geom
