@@ -7,12 +7,12 @@ import time
 import numpy as np
 import h5py
 
-from constants import PREFIX, DET_FGLOB, DET_DSET, TRAINID_DSET
+from constants import PREFIX, DET_FGLOB, DET_DSET
+from add_metadata import add_metadata
 
 def get_litpix(run, offset, mask, gain_mode=16, photon_energy=2000):
     adu_thresh = 380 * (16/gain_mode) * (photon_energy/2000)
     litpix = np.empty((0,))
-    train_ids = np.empty((0,), dtype='u8')
     flist = sorted(glob.glob(PREFIX + 'raw/r%.4d/'%run + DET_FGLOB))
     for fnum, fname in enumerate(flist):
         with h5py.File(fname, 'r') as f:
@@ -29,9 +29,8 @@ def get_litpix(run, offset, mask, gain_mode=16, photon_energy=2000):
                 #sys.stderr.write('\r%s: %d/%d    ' % (op.basename(fname), i+1, dset.shape[0]))
 
             litpix = np.append(litpix, f_litpix)
-            train_ids = np.append(train_ids, f[TRAINID_DSET][:])
     #sys.stderr.write('\n')
-    return litpix, train_ids
+    return litpix
 
 def main():
     parser = argparse.ArgumentParser(description='Calculate event-wise litpixels')
@@ -54,7 +53,8 @@ def main():
 
     with h5py.File(PREFIX+'ayyerkar/data/events/r%.4d_events.h5'% args.run, 'w') as f:
         f['entry_1/litpixels'] = litpix
-        f['entry_1/trainId'] = train_ids
+
+    add_metadata(args.run)
 
 if __name__ == '__main__':
     main()
