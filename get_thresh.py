@@ -11,7 +11,7 @@ def gaussian(x, a, x0, sigma):
 
 def update_hit_inds(run, hit_inds):
     print('Updating events file with hit_indices')
-    with h5py.File(PREFIX+'ayyerkar/data/events/r%.4d_events.h5'%run, 'r') as f:
+    with h5py.File(PREFIX+'ayyerkar/data/events/r%.4d_events.h5'%run, 'a') as f:
         if 'entry_1/hit_indices' in f:
             del f['entry_1/hit_indices']
         f['entry_1/hit_indices'] = hit_inds
