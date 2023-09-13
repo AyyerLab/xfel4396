@@ -10,4 +10,8 @@ GAIN_DSET = '/CONTROL/SQS_NQS_PNCCD1MP/MDL/DAQ_GAIN/pNCCDGain/value'
 MOTOR_TYPES = ['UP', 'DOWN', 'LEFT', 'RIGHT', 'FEL']
 MOTOR_DSETS = ['/CONTROL/SQS_NQS_PNCCD/MOTOR/PNCCD_%s/actualPosition/value'%mtype for mtype in MOTOR_TYPES]
 
+DOOCS_FGLOB = 'RAW-R*-DA01-S*.h5'
+WAVELENGTH_DSET = '/CONTROL/SQS_DIAG1_XGMD/XGM/DOOCS/pulseEnergy/wavelengthUsed/value'
+NBUNCHES_DSET = '/CONTROL/SQS_DIAG1_XGMD/XGM/DOOCS/pulseEnergy/numberOfSa3BunchesActual/value'
+
 ADU_PER_KEV = 4520 # in Gain mode 1
