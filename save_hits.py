@@ -1,6 +1,7 @@
 import sys
 import os.path as op
 import argparse
+import glob
 
 import numpy as np
 import h5py
@@ -23,7 +24,7 @@ def main():
     parser.add_argument('-t', '--threshold', help='Manual hitscore threshold', type=float)
     args = parser.parse_args()
     
-    dark_fname = PREFIX + 'ayyerkar/data/dark/r%.4d_g%.2d.h5'%(args.dark_run, args.gain_mode)
+    dark_fname = glob.glob(PREFIX + 'ayyerkar/data/dark/r%.4d*.h5'%args.dark_run)[0]
     with h5py.File(dark_fname, 'r') as f:
         offset = f['offset'][:]
         gain_mode = int(f['gain_mode'][...])
