@@ -50,6 +50,7 @@ def main():
     with h5py.File(PREFIX+'ayyerkar/data/dark/r%.4d_g%.2d.h5'%(args.run, gain_mode), 'w') as f:
         f['offset'] = offset
         f['std'] = std
+        f['gain_mode'] = gain_mode
 
 if __name__ == '__main__':
     main()
